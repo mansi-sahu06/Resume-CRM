@@ -51,10 +51,8 @@ app.use((err: any, req: express.Request, res: express.Response, next: express.Ne
   });
 });
 
-// Export for Vercel
+// Vercel serverless handler
 export default app;
 
-// Vercel serverless handler
-export async function handler(req: VercelRequest, res: VercelResponse) {
-  return app(req, res);
-}
+// For vercel compatible handler
+export const handler = app;

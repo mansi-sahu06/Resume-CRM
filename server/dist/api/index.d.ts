@@ -1,6 +1,5 @@
-import { Application } from "express";
-import type { VercelRequest, VercelResponse } from "@vercel/node";
+import express, { Application } from "express";
 declare const app: Application;
 export default app;
-export declare function handler(req: VercelRequest, res: VercelResponse): Promise<any>;
+export declare const handler: express.Application;
 //# sourceMappingURL=index.d.ts.map
