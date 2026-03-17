@@ -11,7 +11,7 @@ export const parseResume = async (req: Request, res: Response) => {
     }
 
     const dataBuffer = fs.readFileSync(file.path);
-    const pdfData = await pdf(dataBuffer);
+    const pdfData = await (pdf as any).default(dataBuffer);
     const text = pdfData.text;
 
     // VERY BASIC extraction (you can improve later)
@@ -23,7 +23,7 @@ export const parseResume = async (req: Request, res: Response) => {
       /(\+?\d{1,3}[- ]?)?\d{10}/
     );
 
-    const skills = [];
+    const skills: string[] = [];
     const skillKeywords = [
       "JavaScript",
       "React",
@@ -35,7 +35,7 @@ export const parseResume = async (req: Request, res: Response) => {
       "CSS"
     ];
 
-    skillKeywords.forEach(skill => {
+    skillKeywords.forEach((skill: string) => {
       if (text.toLowerCase().includes(skill.toLowerCase())) {
         skills.push(skill);
       }

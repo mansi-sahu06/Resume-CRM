@@ -31,9 +31,7 @@ const ResumeSchema = new Schema<IResume>(
     currentCompany: String,
     expectedSalary: Number,
     location: String,
-
-    resumeUrl: { type: String, required: false },
-
+    resumeFile: { type: String, required: true },
     notes: String,
     status: {
       type: String,
