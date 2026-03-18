@@ -3,7 +3,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.handler = void 0;
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const dotenv_1 = __importDefault(require("dotenv"));
@@ -20,10 +19,19 @@ app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 // Static files for uploads
 app.use("/uploads", express_1.default.static(path_1.default.join(__dirname, "../uploads")));
-// Connect to database
-(0, db_1.default)().catch((error) => {
-    console.error("Database connection error:", error);
-});
+// Connect to database on first request
+let dbConnected = false;
+const initDB = async () => {
+    if (!dbConnected && process.env.MONGO_URI) {
+        try {
+            await (0, db_1.default)();
+            dbConnected = true;
+        }
+        catch (error) {
+            console.error("Database connection error:", error);
+        }
+    }
+};
 // Routes
 app.get("/", (req, res) => {
     res.send("Resume CRM API is running...");
@@ -34,8 +42,13 @@ app.get("/api/test", (req, res) => {
 app.use("/api/auth", authRoutes_1.default);
 app.use("/api/resumes", resumeRoutes_1.default);
 // Health check endpoint
-app.get("/api/health", (req, res) => {
-    res.json({ status: "ok", timestamp: new Date().toISOString() });
+app.get("/api/health", async (req, res) => {
+    await initDB();
+    res.json({
+        status: "ok",
+        timestamp: new Date().toISOString(),
+        dbConnected
+    });
 });
 // Error handling middleware
 app.use((err, req, res, next) => {
@@ -44,8 +57,6 @@ app.use((err, req, res, next) => {
         error: err.message || "Internal Server Error",
     });
 });
-// Vercel serverless handler
+// Export for Vercel
 exports.default = app;
-// For vercel compatible handler
-exports.handler = app;
 //# sourceMappingURL=index.js.map

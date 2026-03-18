@@ -2,7 +2,6 @@ import express, { Application } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import path from "path";
-import type { VercelRequest, VercelResponse } from "@vercel/node";
 
 import connectDB from "../src/config/db";
 import authRoutes from "../src/routes/authRoutes";
@@ -21,10 +20,18 @@ app.use(express.urlencoded({ extended: true }));
 // Static files for uploads
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
-// Connect to database
-connectDB().catch((error) => {
-  console.error("Database connection error:", error);
-});
+// Connect to database on first request
+let dbConnected = false;
+const initDB = async () => {
+  if (!dbConnected && process.env.MONGO_URI) {
+    try {
+      await connectDB();
+      dbConnected = true;
+    } catch (error) {
+      console.error("Database connection error:", error);
+    }
+  }
+};
 
 // Routes
 app.get("/", (req, res) => {
@@ -39,8 +46,13 @@ app.use("/api/auth", authRoutes);
 app.use("/api/resumes", resumeRoutes);
 
 // Health check endpoint
-app.get("/api/health", (req, res) => {
-  res.json({ status: "ok", timestamp: new Date().toISOString() });
+app.get("/api/health", async (req, res) => {
+  await initDB();
+  res.json({ 
+    status: "ok", 
+    timestamp: new Date().toISOString(),
+    dbConnected 
+  });
 });
 
 // Error handling middleware
@@ -51,8 +63,5 @@ app.use((err: any, req: express.Request, res: express.Response, next: express.Ne
   });
 });
 
-// Vercel serverless handler
+// Export for Vercel
 export default app;
-
-// For vercel compatible handler
-export const handler = app;
