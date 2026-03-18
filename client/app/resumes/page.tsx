@@ -57,7 +57,7 @@ export default function ResumesPage() {
     <div className="p-6">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl flex items-center justify-center font-bold text-gray-800">
+        <h1 className="text-3xl flex items-center justify-center font-bold  text-white">
           All Resumes
         </h1>
       </div>
@@ -67,13 +67,13 @@ export default function ResumesPage() {
         <div className="grid md:grid-cols-3 gap-3">
           <input
             placeholder="Search candidate..."
-            className="border p-2 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+            className="border p-2 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-black"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
 
           <select
-            className="border p-2 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+            className="border p-2 rounded-lg focus:ring-2 text-black focus:ring-blue-500 outline-none"
             value={category}
             aria-label="Filter by category"
             onChange={(e) => setCategory(e.target.value)}
@@ -85,7 +85,7 @@ export default function ResumesPage() {
           </select>
 
           <select
-            className="border p-2 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+            className="border p-2 rounded-lg  text-black focus:ring-2 focus:ring-blue-500 outline-none"
             value={status}
             aria-label="Filter by status"
             onChange={(e) => setStatus(e.target.value)}
@@ -117,7 +117,7 @@ export default function ResumesPage() {
 
           <tbody>
             {resumes.map((r) => (
-              <tr key={r._id} className="border-t hover:bg-gray-50">
+              <tr key={r._id} className="border-t hover:bg-gray-50 text-black" >
                 <td className="p-4 font-medium">{r.fullName}</td>
                 <td className="p-4">{r.category}</td>
                 <td className="p-4">{r.experience} yrs</td>
@@ -131,7 +131,7 @@ export default function ResumesPage() {
                     onChange={(e) =>
                       handleStatusChange(r._id, e.target.value)
                     }
-                    className="flex border px-3 py-1 rounded-md focus:ring-2 focus:ring-blue-500"
+                    className="flex border px-3 py-1 rounded-md focus:ring-2 focus:ring-blue-500  "
                   >
                     <option>New</option>
                     <option>Shortlisted</option>

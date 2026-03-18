@@ -38,16 +38,16 @@ export default function DashboardPage() {
 
       {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-        <div className="hover:shadow-2xl"><StatCard title="Total Resumes" value={stats.totalResumes} /></div>
-        <div className="hover:shadow-2xl"><StatCard title="Full Stack" value={stats.fullStack} /></div>
-        <div className="hover:shadow-2xl"><StatCard title="Digital Marketing" value={stats.digitalMarketing} /></div>
-        <div className="hover:shadow-2xl"><StatCard title="Cyber Security" value={stats.cyberSecurity} /></div>
-        <div className="hover:shadow-2xl"><StatCard title="Shortlisted" value={stats.shortlisted} /></div>
+        <div className="hover:shadow-2xl text-black"><StatCard title="Total Resumes" value={stats.totalResumes} /></div>
+        <div className="hover:shadow-2xl text-black"><StatCard title="Full Stack" value={stats.fullStack} /></div>
+        <div className="hover:shadow-2xl text-black"><StatCard title="Digital Marketing" value={stats.digitalMarketing} /></div>
+        <div className="hover:shadow-2xl text-black"><StatCard title="Cyber Security" value={stats.cyberSecurity} /></div>
+        <div className="hover:shadow-2xl text-black"><StatCard title="Shortlisted" value={stats.shortlisted} /></div>
       </div>
 
       {/* Hiring Pipeline */}
       <div className="bg-white rounded-xl shadow p-6">
-        <h2 className="text-lg font-semibold mb-4">Hiring Pipeline</h2>
+        <h2 className="text-lg font-semibold mb-4 text-gray-900">Hiring Pipeline</h2>
 
         <div className="flex flex-wrap gap-4">
           <div className="px-4 py-2 rounded bg-blue-100 text-blue-700">

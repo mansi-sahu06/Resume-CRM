@@ -77,14 +77,14 @@ export default function AddResumePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-gray-100 flex justify-center py-12 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50  text-black to-gray-100 flex justify-center py-12 px-4">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-3xl bg-white p-10 rounded-2xl shadow-xl space-y-8"
+        className="w-full max-w-3xl  text-black bg-white p-10 rounded-2xl shadow-xl space-y-8"
       >
         {/* Header */}
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-gray-800">
+          <h1 className="text-4xl font-bold text-black">
             Add Resume
           </h1>
           <p className="text-gray-500 mt-2">
